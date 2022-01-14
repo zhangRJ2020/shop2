@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mapper.ItemCategoryMapper">
+
+    <!--实体类与数据库映射字段部分-->
+    <resultMap id="ResultMapItemCategory" type="com.test.po.ItemCategory">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="isDelete" column="isDelete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 声明数据库字段 -->
+    <sql id="ItemCategory_field">
+        id,name,pid,isDelete
+    </sql>
+
+    <!-- 实体类属性-->
+    <sql id="ItemCategory_insert">
+        #{id},#{name},#{pid},#{isDelete}
+    </sql>
+
+    <!-- 更新结果  -->
+    <sql id="ItemCategory_update">
+        <if test="name != null">
+            name = #{name},
+        </if>
+        <if test="pid != null">
+            pid = #{pid},
+        </if>
+        <if test="isDelete != null">
+            isDelete = #{isDelete}
+        </if>
+    </sql>
+
+    <!-- 查询时条件   -->
+    <sql id="ItemCategory_where">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="name != null">
+            and name = #{name}
+        </if>
+        <if test="pid != null">
+            and pid = #{pid}
+        </if>
+        <if test="isDelete != null">
+            and isDelete = #{isDelete}
+        </if>
+    </sql>
+
+
+    <!-- 查询分页-->
+    <select id="findBySqlRerturnEntity" resultMap="ResultMapItemCategory">
+        ${sql}
+    </select>
+
+</mapper>
